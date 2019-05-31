@@ -6,14 +6,9 @@ import boto3
 from faker import Faker
 fake = Faker()
 
-
 bookTable = boto3.resource('dynamodb').Table('Books')
 app = Flask(__name__)
 api = Api(app)
-
-import logging
-import sys
-logging.basicConfig(stream=sys.stdout, level=logging.INFO)
 
 def genLogs(requestName):
     for i in range(100):
