@@ -6,6 +6,10 @@ import boto3
 from faker import Faker
 fake = Faker()
 
+import sys
+import logging
+logging.getLogger().addHandler(logging.StreamHandler(sys.stdout))
+
 bookTable = boto3.resource('dynamodb').Table('Books')
 app = Flask(__name__)
 api = Api(app)
