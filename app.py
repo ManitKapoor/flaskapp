@@ -6,22 +6,23 @@ import boto3
 from faker import Faker
 fake = Faker()
 
-import sys
-import logging
-logging.getLogger().addHandler(logging.StreamHandler(sys.stdout))
 
 bookTable = boto3.resource('dynamodb').Table('Books')
 app = Flask(__name__)
 api = Api(app)
 
+import logging	
+import sys	
+logging.basicConfig(stream=sys.stdout, level=logging.INFO)
+
 def genLogs(requestName):
     for i in range(100):
-        app.logger.info("Request for " + requestName)
-        app.logger.info (fake.email()) 
-        app.logger.info(fake.country()) 
-        app.logger.info(fake.name()) 
-        app.logger.info(fake.text()) 
-        app.logger.info(fake.url())
+        print("Request for " + requestName)
+        print (fake.email()) 
+        print(fake.country()) 
+        print(fake.name()) 
+        print(fake.text()) 
+        print(fake.url())
 
 class Books(Resource):
     def get(self):
@@ -55,7 +56,7 @@ def send_assets(path):
 
 @app.route('/')
 def index():
-    app.logger.info('angular app is deployed for user ip') 
+    print('angular app is deployed for user ip') 
     return send_from_directory("build","index.html")
 
 if __name__ == '__main__':
